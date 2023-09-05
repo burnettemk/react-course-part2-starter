@@ -1,28 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import useTodos from "./hooks/useTodos";
 
-interface Todo {
-  id: number;
-  title: string;
-  userId: number;
-  completed: boolean;
-}
-
-const TodoList = () => {
-  const fetchTodos = () =>
-    axios
-      .get("https://jsonplaceholder.typicode.com/todos")
-      .then((res) => res.data);
-
-  const {
-    data: todos,
-    error,
-    isLoading,
-  } = useQuery<Todo[], Error>({
-    queryKey: ["todos"],
-    queryFn: fetchTodos,
-  });
+function TodoList() {
+  const { data: todos, error, isLoading } = useTodos();
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -37,6 +16,6 @@ const TodoList = () => {
       ))}
     </ul>
   );
-};
+}
 
 export default TodoList;
