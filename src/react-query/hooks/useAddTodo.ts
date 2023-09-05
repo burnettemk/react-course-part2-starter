@@ -2,6 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todo } from "./useTodos";
 import axios from "axios";
 import { CACHE_KEY_TODOS } from "../constants";
+import APIClient from "../services/api-client";
+
+const apiClient = new APIClient<Todo>('/todos');
 
 interface AddTodoContext {
     prevTodos: Todo[];
@@ -10,10 +13,7 @@ interface AddTodoContext {
 const useAddTodo = (onAdd: () => void) => {
     const queryClient = useQueryClient();
     return useMutation<Todo, Error, Todo, AddTodoContext>({
-      mutationFn: (todo: Todo) =>
-        axios
-          .post<Todo>("https://jsonplaceholder.typicode.com/todos", todo)
-          .then((res) => res.data),
+      mutationFn: apiClient.post,
       //  we use onMutate first to update the UI as soon as the form is submitted for an optimistic update
       onMutate: (newTodo: Todo) => {
         const prevTodos = queryClient.getQueryData<Todo[]>(CACHE_KEY_TODOS) || [];
