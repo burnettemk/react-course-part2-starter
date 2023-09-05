@@ -18,7 +18,7 @@ const TodoForm = () => {
       axios
         .post<Todo>("https://jsonplaceholder.typicode.com/todosx", todo)
         .then((res) => res.data),
-
+    //  we use onMutate first to update the UI as soon as the form is submitted for an optimistic update
     onMutate: (newTodo: Todo) => {
       const prevTodos = queryClient.getQueryData<Todo[]>(["todos"]) || [];
       queryClient.setQueryData<Todo[]>(["todos"], (todos) => [
@@ -30,6 +30,7 @@ const TodoForm = () => {
 
       return { prevTodos };
     },
+    // if we are succesful, we save the new todo in the cache
     onSuccess: (savedTodo, newTodo) => {
       // Invalidating the cache
       // queryClient.invalidateQueries({
