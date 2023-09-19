@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { LoginAction } from "../reducers/loginReducer";
+import { LoginAction } from "./LoginProvider";
 import React from "react";
 
 interface LoginContextType {

@@ -1,4 +1,7 @@
-import useLogin from "./hooks/useLogin";
+import { useContext } from "react";
+import LoginContext from "./loginContext";
+
+export const useLogin = () => useContext(LoginContext);
 
 const LoginStatus = () => {
   const { user, dispatch } = useLogin();
