@@ -1,12 +1,12 @@
-import useLogin from "../login/useLogin";
 import { useContext } from "react";
 import TasksContext from "./tasksContext";
+import useLoginStore from "../login/store";
 
 const useTasks = () => useContext(TasksContext);
 
 const TaskList = () => {
   const { tasks, dispatch } = useTasks();
-  const { user } = useLogin();
+  const { user } = useLoginStore();
 
   return (
     <>
