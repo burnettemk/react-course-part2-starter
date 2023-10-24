@@ -1,31 +1,27 @@
 import { useReducer } from "react";
+import useCounterStore from "./store";
 
 interface Action {
   type: "INCREMENT" | "RESET";
 }
 
-const counterReducer = (state: number, action: Action): number => {
-  if (action.type === "INCREMENT") return state + 1;
-  if (action.type === "RESET") return 0;
-  return state;
-};
+// const counterReducer = (state: number, action: Action): number => {
+//   if (action.type === "INCREMENT") return state + 1;
+//   if (action.type === "RESET") return 0;
+//   return state;
+// };
 
 const Counter = () => {
-  const [value, dispatch] = useReducer(counterReducer, 0);
+  // const [value, dispatch] = useReducer(counterReducer, 0);
+  const { counter, increment, reset } = useCounterStore();
 
   return (
     <div>
-      Counter ({value})
-      <button
-        onClick={() => dispatch({ type: "INCREMENT" })}
-        className="btn btn-primary mx-1"
-      >
+      Counter ({counter})
+      <button onClick={() => increment()} className="btn btn-primary mx-1">
         Increment
       </button>
-      <button
-        onClick={() => dispatch({ type: "RESET" })}
-        className="btn btn-primary mx-1"
-      >
+      <button onClick={() => reset()} className="btn btn-primary mx-1">
         Reset
       </button>
     </div>
